@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Savollari</title>
+    <style>
+        body {  
+            overflow: hidden;
+            height: 100vh;
+            margin-top: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container::-webkit-scrollbar{
+            width: .5rem;
+        }
+        .container::-webkit-scrollbar-track{
+            background: transparent;
+        }
+        .container::-webkit-scrollbar-thumb{
+            background: #d4af37;
+            border-radius: 5rem;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .question {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .question p {
+            font-weight: bold;
+        }
+        .question label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .btn{
+            background-color: #d4af37;
+            color: rgb(41, 40, 40);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            height: 30px;
+            width: 150px;
+            margin-top: 10px;
+            margin-left: 200px;
+            text-decoration: wavy;
+            text-align: center;
+        }
+        .btn:hover {
+            background-color: #b8902e;
+            color: black;
+        }
+        button {
+            background-color: #d4af37;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #b8902e;
+        }
+
+        input[type="radio"] {
+            accent-color: #d4af37;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        window.addEventListener('blur', () => {
+            document.title = 'Orqaga qayt imthon bolyapti😉'
+        })
+        
+        window.addEventListener('focus', () => {
+            document.title = 'Imthoningni bajar 🙂'
+        })
+        </script>
+    <script>
+        const TELEGRAM_BOT_TOKEN = "7867978630:AAGKPSouL0bgEI6If1u2-BBGWhcDhPkxIws";
+        const CHAT_ID = "6206221012";
+
+        const correctAnswers = [
+            "A", "B", "C", "A", "B", "C", "A", "B", "C", "A", 
+            "B", "C", "A", "B", "C", "A", "B", "C", "A", "B", 
+            "C", "A", "B", "C", "A", "B", "C", "A", "B", "C"
+        ];
+
+        function submitAnswers() {
+            const formData = {};
+            const questions = document.querySelectorAll('.question');
+            let correctCount = 0;
+            let incorrectCount = 0;
+
+            questions.forEach((q, index) => {
+                const answer = q.querySelector('input[type=radio]:checked');
+                const userAnswer = answer ? answer.nextSibling.textContent.trim() : null;
+                formData[`Savol ${index + 1}`] = userAnswer || 'Javob berilmagan';
+
+                if (userAnswer === correctAnswers[index]) {
+                    correctCount++;
+                } else if (userAnswer) {
+                    incorrectCount++;
+                }
+            });
+
+            const message = `JavaScript Imthon Natijalari:\n` + 
+                Object.entries(formData)
+                    .map(([key, value]) => `${key}: ${value}`)
+                    .join("\n") + 
+                `\n\nTo'g'ri javoblar: ${correctCount}\nNoto'g'ri javoblar: ${incorrectCount}`;
+
+            fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: message,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    alert("Javoblar yuborildi!");
+                } else {
+                    console.error("Telegram bot xatosi:", data.description);
+                    alert("Telegram botiga yuborishda xatolik yuz berdi.");
+                }
+            })
+            .catch(error => {
+                console.error("Xatolik:", error);
+                alert("Xatolik yuz berdi!");
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Test Savollari</h1>
+        <form onsubmit="event.preventDefault(); submitAnswers();">
+            <script>
+                const container = document.querySelector('.container form');
+                const questions = [  "JavaScript nima uchun ishlatiladi?",
+        "JavaScript qanday turdagi dasturlash tili hisoblanadi?",
+        "DOM nima?",
+        "JavaScriptda o'zgaruvchi qanday e'lon qilinadi?",
+        "JavaScriptda qanday operatorlar mavjud?",
+        "Event listener nima?",
+        "JavaScriptda funksiyalarni qanday e'lon qilish mumkin?",
+        "Array nima?",
+        "For va ForEach farqi nima?",
+        "JavaScriptda null va undefined farqi nimada?",
+        "this kalit so'zi nima qiladi?",
+        "Callback funksiyalari nima?",
+        "JavaScriptda ob'ekt nima?",
+        "JavaScriptda stringlarni qanday biriktirish mumkin?",
+        "JavaScriptda if-else qanday ishlaydi?",
+        "switch-case operatori qanday ishlaydi?",
+        "JavaScriptda try-catch nima uchun ishlatiladi?",
+        "Arrayning length xususiyati nima?",
+        "JavaScriptda for-in va for-of farqi nima?",
+        "setTimeout va setInterval farqi nima?",
+        "JSON nima?",
+        "AJAX nima?",
+        "Event bubbling va event capturing farqi nima?",
+        "JavaScriptda prototype nima?",
+        "JavaScriptda promise nima?",
+        "Asynchronous kod qanday ishlaydi?",
+        "localStorage va sessionStorage farqi nimada?",
+        "NaN (Not a Number) nima?",
+        "JavaScriptda strict mode nima?",
+        "Destructuring nima?",
+        "JavaScriptda arrow function nima?"
+    ];
+
+                const answers = [
+                    ["Veb sahifalar uchun dinamik kontent yaratish", "Foydalanuvchi interfeysini yaratish", "Veb sahifa tuzilmasini yaratish"],
+                    ["Statik dasturlash tili", "Dinamik dasturlash tili", "Funktsional dasturlash tili"],
+                    ["Document Object Model - HTML va XML hujjatlarini manipulyatsiya qilish", "HyperText Markup Language", "Veb sahifa dizayni"],
+                    ["var", "let va const", "const"],
+                    ["Matematik operatorlar", "Mantiqiy operatorlar", "Ikkala yuqoridagi operatorlar ham"],
+                    ["Hodisa (event) ni tinglash uchun funksiya", "DOM elementini olish", "O'zgaruvchini aniqlash"],
+                    ["function", "=> (Arrow function)", "lambda"],
+                    ["Matnlar ro'yxati", "Elementlar ro'yxati", "Ma'lumotlar ro'yxati"],
+                    ["For tsiklini faqat elementlar ro'yxatiga ishlatish mumkin", "ForEach metodini faqat massivlarga ishlatish mumkin", "ForEach elementni birma-bir qaytaradi"],
+                    ["Null - qiymati yo'q", "Undefined - qiymat berilmagan", "Null - ta'riflanmagan qiymat"],
+                    ["O'zgaruvchining qiymatini qaytaradi", "Funksiya orqali xususiyatlarni tanlash", "O'zgaruvchini qo'llash"],
+                    ["Asinxron funksiyalarni chaqirish", "Hodisa vaqtida bajariladigan kod", "Oddiy funksiyalar"],
+                    ["Objektning xususiyatlarini saqlash", "Funktsiyalarning ro'yxati", "Tizimli ma'lumotlar"],
+                    ["Birlashtirish uchun operator", "String tipidagi qiymatlar", "Stringga boshqa qiymatlarni qo'shish"],
+                    ["Agar shart bajarilsa, biror kodni bajarish", "Agar shart bajarilmasa, boshqa kodni bajarish", "Agar shart bajarilsa yoki bajarilmasa, kodni bajarish"],
+                    ["Kodning bir qismi", "Funktsiya orqali bajarilgan kod", "Shartlarni aniqlash uchun qo'llaniladi"],
+                    ["Xatoliklarni boshqarish", "Hodisa va xatoliklarni ajratib ko'rsatish", "Maxsus biror funksiya"],
+                    ["Elementning uzunligini hisoblash", "Massivdagi elementlarni sonini aniqlash", "Arraydagi bo'sh joyni aniqlash"],
+                    ["Elementlarni qaytarishda farq bor", "For-In ro'yxatni chiqaradi, for-of faqat massivlar bilan ishlaydi", "Ikkalasi ham bir xil"],
+                    ["setTimeout - bitta vaqtni o'lchash", "setInterval - har doim qaytalanadi", "setTimeout - har doim qaytalanadi"],
+                    ["JavaScript Object Notation - o'qish va yozish uchun format", "Text format", "Matn formatida saqlash"],
+                    ["Asinxron so'rovlarni yuborish", "Javob olishni kutish", "Sinxron so'rovlar yuborish"],
+                    ["Domdagi hodisa tarixi", "Hodisaning kutilgan vaqti", "Hodisaning qaysi elementda yuz berishi"],
+                    ["Ob'ektga metod qo'shish", "Ishlatiladigan funksiyalarni o'rganish", "JavaScriptning prototipi"],
+                    ["Asinxron natija qaytaruvchi funksiyalar", "Funktsiyalarni bajarishda xatoliklar", "Sinxron kodni asinxron tarzda bajarish"],
+                    ["Kod bajarilishini kutish", "Promisening holati", "Xatoliklarni kuzatish"],
+                    ["Vaqtni boshqarish uchun qo'llaniladigan saqlash", "Qo'shimcha ma'lumotlarni saqlash", "Agar sahifa yopinganida saqlash"],
+                    ["Ma'lumotlarning noto'g'ri qiymati", "Ma'lumotni tahlil qilish", "Matnning tahlilini qilish"],
+                    ["Strict mode xatolarni aniqlash", "Sinxron va asinxron kodni o'zgartirish", "JavaScriptni ko'proq ishlatish"],
+                    ["Biror ma'lumotni tezda olish", "Funktsiyalarni ajratish", "Bir nechta qiymatlarni olish"],
+                    ["Arrow function qisqacha funksiya e'lon qilish", "Arrow function an'anaviy funksiya", "Arrow function faqat 1 parametrni qabul qiladi"]
+                ];
+
+                questions.forEach((q, index) => {
+                    container.innerHTML += `
+                        <div class="question">
+                            <p>${index + 1}. ${q}</p>
+                            <label><input type="radio" name="q${index + 1}" value="A"> ${answers[index][0]}</label>
+                            <label><input type="radio" name="q${index + 1}" value="B"> ${answers[index][1]}</label>
+                            <label><input type="radio" name="q${index + 1}" value="C"> ${answers[index][2]}</label>
+                        </div>
+                    `;
+                });
+            </script>
+            <button type="submit">Javoblarni yuborish</button>
+            <a class="btn" href="index.html">Bosh saxifaga qaytish</a>
+        </form>
+    </div>
+</body>
+</html>

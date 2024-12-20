@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Savollari</title>
+    <style>
+        body {  
+            overflow: hidden;
+            height: 100vh;
+            margin-top: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container::-webkit-scrollbar{
+            width: .5rem;
+        }
+        .container::-webkit-scrollbar-track{
+            background: transparent;
+        }
+        .container::-webkit-scrollbar-thumb{
+            background: #d4af37;
+            border-radius: 5rem;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .question {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .question p {
+            font-weight: bold;
+        }
+        .question label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .btn{
+            background-color: #d4af37;
+            color: rgb(41, 40, 40);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            height: 30px;
+            width: 150px;
+            margin-top: 10px;
+            margin-left: 200px;
+            text-decoration: wavy;
+            text-align: center;
+        }
+        .btn:hover {
+            background-color: #b8902e;
+            color: black;
+        }
+        button {
+            background-color: #d4af37;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #b8902e;
+        }
+
+        input[type="radio"] {
+            accent-color: #d4af37;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        window.addEventListener('blur', () => {
+            document.title = 'Orqaga qayt imthon bolyapti😉'
+        })
+        
+        window.addEventListener('focus', () => {
+            document.title = 'Imthoningni bajar 🙂'
+        })
+        </script>
+    <script>
+        const TELEGRAM_BOT_TOKEN = "7867978630:AAGKPSouL0bgEI6If1u2-BBGWhcDhPkxIws";
+        const CHAT_ID = "6206221012";
+
+        const correctAnswers = [
+            "A", "B", "C", "A", "B", "C", "A", "B", "C", "A", 
+            "B", "C", "A", "B", "C", "A", "B", "C", "A", "B", 
+            "C", "A", "B", "C", "A", "B", "C", "A", "B", "C"
+        ];
+
+        function submitAnswers() {
+            const formData = {};
+            const questions = document.querySelectorAll('.question');
+            let correctCount = 0;
+            let incorrectCount = 0;
+
+            questions.forEach((q, index) => {
+                const answer = q.querySelector('input[type=radio]:checked');
+                const userAnswer = answer ? answer.nextSibling.textContent.trim() : null; olish
+                formData[`Savol ${index + 1}`] = userAnswer || 'Javob berilmagan';
+
+                if (userAnswer === correctAnswers[index]) {
+                    correctCount++;
+                } else if (userAnswer) {
+                    incorrectCount++;
+                }
+            });
+
+            const message = `CSS Imthon Natijalari:\n` + 
+                Object.entries(formData)
+                    .map(([key, value]) => `${key}: ${value}`)
+                    .join("\n") + 
+                `\n\nTo'g'ri javoblar: ${correctCount}\nNoto'g'ri javoblar: ${incorrectCount}`;
+
+            fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: message,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    alert("Javoblar yuborildi!");
+                } else {
+                    console.error("Telegram bot xatosi:", data.description);
+                    alert("Telegram botiga yuborishda xatolik yuz berdi.");
+                }
+            })
+            .catch(error => {
+                console.error("Xatolik:", error);
+                alert("Xatolik yuz berdi!");
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Test Savollari</h1>
+        <form onsubmit="event.preventDefault(); submitAnswers();">
+            <script>
+                const container = document.querySelector('.container form');
+                const questions =  [
+                    "CSS nima uchun ishlatiladi?",
+                    "CSSning asosiy qismi qaysi belgi bilan ajratiladi?",
+                    "Flexbox nima uchun ishlatiladi?",
+                    "Grid tizimi qachon ishlatiladi?",
+                    "Media query nima uchun ishlatiladi?",
+                    "Z-index nima qiladi?",
+                    "Position xususiyati qaysi maqsadda ishlatiladi?",
+                    "CSS ning display qiymati 'block' qachon kerak?",
+                    "Inline va Inline-block farqi nimada?",
+                    "Hover effekti qayerda ishlatiladi?",
+                    "CSS'da transform nima?",
+                    "Animation nima uchun kerak?",
+                    "Transition qanday ishlaydi?",
+                    "CSS da qanday qilib gradient yaratiladi?",
+                    "Margin va Padding farqi nimada?",
+                    "Border-radius nima uchun ishlatiladi?",
+                    "Font-family qanday ishlaydi?",
+                    "Flex-direction nima qiladi?",
+                    "Align-items va Justify-content farqi nimada?",
+                    "CSS ning display: flex nima uchun ishlatiladi?",
+                    "Pseudo element nima?",
+                    "After va Before pseudo-elementlari nima qiladi?",
+                    "Responsive dizayn nima uchun kerak?",
+                    "Viewport nima?",
+                    "CSS'da absolute va relative position farqi nimada?",
+                    "Box-shadow xususiyati nima qiladi?",
+                    "Text-shadow qanday qo'llaniladi?",
+                    "CSS3 yangiliklari nimada?",
+                    "Max-width va Min-width nima qiladi?",
+                    "Overflow: scroll qachon ishlatiladi?"
+                ];
+
+                const answers = [
+                    ["Veb sahifalarni bezash", "Veb sahifalar uchun maxsus tahrirlar", "Foydalanuvchi interfeysini sozlash"],
+                    ["{ }", "[ ]", "< >"],
+                    ["Elementlar orasidagi joyni boshqarish", "Yuqoridan pastga joylashish", "Nizomli tartibda joylashtirish"],
+                    ["Yuqori va pastki qatorlar o'rtasida joylashish", "Elementlarni tarmoqga o'rnatish", "Ko'proq maydonni egallash"],
+                    ["Veb sahifalar o'zgartirilishini tahlil qilish", "Responsive dizaynni yaratish", "Yuklash vaqtini qisqartirish"],
+                    ["Sahifa elementlarini yuqoriga yoki pastga surish", "Sahifa elementlarini ustunlashtirish", "Ko'rinmasni boshqarish"],
+                    ["Elementlarni to'liq joylashtirish", "Elementni tekislashtirish", "O'zgarishlarni joylashtirish"],
+                    ["Elementni tugatilgan qatorga joylash", "Elementni qatorga joylash", "Elementni butunlay ko'rsatish"],
+                    ["Texnologiyalarning yangi versiyalarini olish", "Aniq joyda turish", "Resursni kamaytirish"],
+                    ["Elementning harakatlanishini tahlil qilish", "Rangni o'zgartirish", "Interfeysni jozibador qilish"],
+                    ["Ko'rsatgichni ishlatish", "Tugmani yaratish", "Qayta rang berish"],
+                    ["Transformatsiyani sozlash", "Elementni o'zgartirish", "Ko'rinmas qilish"],
+                    ["Yangi animatsiya yaratish", "Rangni o'zgartirish", "Vaqtni boshqarish"],
+                    ["Holatlarni aniqlash", "Elementlarni birlashtirish", "O'zgarishlarni kuzatish"],
+                    ["Gradientlar bilan ishlash", "Effektlar bilan o'ynash", "Tezlikni oshirish"],
+                    ["Elementlar orasidagi masofani o'zgartirish", "Elementni birlashtirish", "Elementni joylashtirish"],
+                    ["To'g'ri burchaklar yaratish", "Elementni qavsga olish", "Rangni o'zgartirish"],
+                    ["Matnni rang berish", "Shriftni o'zgartirish", "Elementni sozlash"],
+                    ["Elementni bir-biriga nisbatan sozlash", "Elementni o'zgartirish", "Yuqoridan pastga joylash"],
+                    ["Elementlarni tekis qilish", "Xususiyatlarni o'zgartirish", "Ranglarni o'zgartirish"],
+                    ["Elementni boshqarish", "Yangi element yaratish", "Flexbox bilan ishlash"],
+                    ["Vaqtni o'tkazish", "Hamma narsani ko'rsatish", "Shablonlar bilan ishlash"],
+                    ["Kodlarni ustunlashtirish", "Ko'rinmas holatlarni boshqarish", "CSSni o'zgartirish"],
+                    ["Elementlarni bir-biriga moslashtirish", "Ranglarni sozlash", "Tugmalar bilan ishlash"],
+                    ["Ekran o'lchamini boshqarish", "Elementni siljitish", "Formani o'zgartirish"],
+                    ["Elementlarni moslashtirish", "O'zgarishlarni qo'shish", "Flexbox bilan ishlash"],
+                    ["Elementni vertikal ravishda joylashtirish", "Joyni kengaytirish", "Rangni to'g'ri belgilash"],
+                    ["CSS3'dan foydalanish", "Funktsiyalarni kengaytirish", "Dekoratsiya qo'llash"],
+                    ["Elementni o'zgartirish", "Ranglar bilan ishlash", "Responsive dizaynni yaratish"],
+                    ["Textni animatsiyalash", "Ekran o'lchamini tahlil qilish", "Ko'rsatgich bilan ishlash"]
+                ];
+
+                questions.forEach((q, index) => {
+                    container.innerHTML += `
+                        <div class="question">
+                            <p>${index + 1}. ${q}</p>
+                            <label><input type="radio" name="q${index + 1}" value="A"> ${answers[index][0]}</label>
+                            <label><input type="radio" name="q${index + 1}" value="B"> ${answers[index][1]}</label>
+                            <label><input type="radio" name="q${index + 1}" value="C"> ${answers[index][2]}</label>
+                        </div>
+                    `;
+                });
+            </script>
+            <button type="submit">Javoblarni yuborish</button>
+            <a class="btn" href="index.html">Bosh saxifaga qaytish</a>
+        </form>
+    </div>
+</body>
+</html>

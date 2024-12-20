@@ -1,0 +1,146 @@
+/* Umumiy tozalash */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Sahifa konteyneri */
+.rigister {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.rigister h1 {
+    text-align: center;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+.rigister label {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.rigister label p {
+    max-width: 400px;
+    min-width: 350px;
+    font-size: 16px;
+    font-weight: 300;
+    font-family: sans-serif;
+}
+
+.rigister label input,
+.rigister label select {
+    max-width: 400px;
+    min-width: 350px;
+    padding: 10px 5px;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.rigister button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: 300;
+    font-family: sans-serif;
+    cursor: pointer;
+    background-color: #d4af37;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
+
+.paxta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 20px;
+}
+
+.paxta > img {
+    width: 100px;
+    height: 100px;
+}
+
+.paxta > h1 {
+    font-size: 32px;
+    color: #dcc264;
+    text-align: center;
+}
+
+.questions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+    align-items: center;
+}
+
+.savollar h1 {
+    width: 100%;
+    text-align: center;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    padding: 10px 0;
+    font-size: 45px;
+}
+
+.questions label {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.questions label textarea {
+    max-width: 500px;
+    min-width: 350px;
+    max-height: 300px;
+    min-height: 200px;
+    padding: 10px 5px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.savollar button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: 300;
+    font-family: sans-serif;
+    cursor: pointer;
+    background-color: #d4af37;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+@media screen and (min-width: 600px) {
+    .questions label {
+        width: 500px;
+    }
+    .questions label textarea {
+        width: 500px;
+    }
+}
